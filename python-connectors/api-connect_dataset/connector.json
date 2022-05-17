@@ -8,33 +8,6 @@
     "writable": false,
     "params": [
         {
-            "type": "SEPARATOR",
-            "label": "Authentication"
-        },
-        {
-            "name": "credential",
-            "label": "Credential preset",
-            "type": "PRESET",
-            "parameterSetId": "credential"
-        },
-        {
-            "type": "SEPARATOR",
-            "label": "API call parameters"
-        },
-        {
-            "name": "custom_key_values",
-            "label": "Custom keys / values",
-            "description": "Replace {{key}} by value in presets (optional)",
-            "type": "KEY_VALUE_LIST",
-            "visibilityCondition": false
-        },
-        {
-            "name": "separator",
-            "label": "Warning",
-            "description": "Anyone with read permission to this credential can obtain its stored passwords / keys by calling an untrusted API endpoint",
-            "type": "SEPARATOR"
-        },
-        {
             "name": "login_type",
             "label": "Login type",
             "type": "SELECT",
