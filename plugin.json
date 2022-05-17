@@ -7,7 +7,7 @@
         "author": "Dataiku (Alex Bourret)",
         "icon": "icon-rocket",
         "tags": ["Connector", "Cloud"],
-        "url": "https://www.dataiku.com/product/plugins/api-connect/",
+        "url": "https://docs.dataddo.com",
         "licenseInfo": "Apache Software License"
     }
 }
