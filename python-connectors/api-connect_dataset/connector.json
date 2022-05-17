@@ -8,15 +8,13 @@
     "writable": false,
     "params": [
         {
-            "name": "bearer_token",
-            "label": "bearer_token",
-            "description": "bearer_token",
+            "name": "flow",
+            "label": "flow",
             "type": "TEXTAREA"
         },
         {
-            "name": "flow",
-            "label": "flow",
-            "description": "flow",
+            "name": "bearer_token",
+            "label": "bearer_token",
             "type": "TEXTAREA"
         }
     ]
