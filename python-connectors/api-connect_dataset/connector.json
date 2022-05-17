@@ -8,13 +8,13 @@
     "writable": false,
     "params": [
         {
-            "name": "DATADDO API KEY",
-            "label": "bearer_token",
+            "label": "DATADDO API KEY",
+            "name": "bearer_token",
             "type": "TEXTAREA"
         },
         {
-            "name": "DATADDO API ENDPOINT ID",
-            "label": "flow",
+            "label": "DATADDO API ENDPOINT ID",
+            "name": "flow",
             "type": "TEXTAREA"
         }
     ]
