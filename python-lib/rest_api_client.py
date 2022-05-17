@@ -20,35 +20,38 @@ class RestAPIClient(object):
     def __init__(self, credential, endpoint, custom_key_values={}):
         logger.info("Initialising RestAPIClient, credential={}, endpoint={}".format(logger.filter_secrets(credential), endpoint))
 
-        #  presets_variables contains all variables available in templates using the {{variable_name}} notation
         self.presets_variables = {}
         self.presets_variables.update(endpoint)
         self.presets_variables.update(credential)
         self.presets_variables.update(custom_key_values)
 
-        #  requests_kwargs contains **kwargs used for requests
         self.requests_kwargs = {}
+
+
+        ### DATADDO HARDCODED CONFIGURATION ###
 
         self.endpoint_query_string = endpoint.get("endpoint_query_string", [])
         user_defined_keys = credential.get("user_defined_keys", [])
         self.user_defined_keys = self.get_params(user_defined_keys, self.presets_variables)
         self.presets_variables.update(self.user_defined_keys)
 
-        endpoint_url = endpoint.get("endpoint_url", "")
+        endpoint_url = endpoint.get("endpoint_url", "https://api.dataddo.com/v1.0/get/627e2fd76a4bb222b100d753?type=json&json_format=object_list")
         self.endpoint_url = format_template(endpoint_url, **self.presets_variables)
         self.http_method = endpoint.get("http_method", "GET")
 
         endpoint_headers = endpoint.get("endpoint_headers", "")
         self.endpoint_headers = self.get_params(endpoint_headers, self.presets_variables)
-
-        self.params = self.get_params(self.endpoint_query_string, self.presets_variables)
-
-        self.extraction_key = endpoint.get("extraction_key", None)
-
         bearer_token = endpoint.get("bearer_token", "")
         bearer_template = credential.get("bearer_template", "Bearer {{token}}")
         bearer_template = bearer_template.replace("{{token}}", bearer_token)
         self.endpoint_headers.update({"Authorization": bearer_template})
+
+        ### END ###
+
+
+        self.params = self.get_params(self.endpoint_query_string, self.presets_variables)
+
+        self.extraction_key = endpoint.get("extraction_key", None)
 
         self.requests_kwargs.update({"headers": self.endpoint_headers})
         self.ignore_ssl_check = endpoint.get("ignore_ssl_check", False)
