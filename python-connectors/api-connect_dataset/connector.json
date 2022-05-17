@@ -18,20 +18,6 @@
             "label": "URL template",
             "description": "https://{{variable}}.exmpl.com/usr/{{username}}/details",
             "type": "TEXTAREA"
-        },
-        {
-            "name": "http_method",
-            "label": "HTTP method",
-            "description": "",
-            "type": "SELECT",
-            "defaultValue": "GET",
-            "selectChoices":[
-                {"value": "GET", "label": "GET"},
-                {"value": "POST", "label": "POST"},
-                {"value": "PUT", "label": "PUT"},
-                {"value": "PATCH", "label": "PATCH"},
-                {"value": "DELETE", "label": "DELETE"}
-            ]
         }
     ]
 }
