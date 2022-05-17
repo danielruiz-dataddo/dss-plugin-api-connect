@@ -25,6 +25,8 @@ class RestAPIClient(object):
         self.presets_variables.update(credential)
         self.presets_variables.update(custom_key_values)
 
+        self.requests_kwargs = {}
+
 
         ### DATADDO HARDCODED CONFIGURATION ###
 
@@ -48,6 +50,51 @@ class RestAPIClient(object):
 
         ### END DATADDO CONFIGURATION###
 
+
+        self.params = self.get_params(self.endpoint_query_string, self.presets_variables)
+
+        self.extraction_key = endpoint.get("extraction_key", None)
+
+        self.requests_kwargs.update({"headers": self.endpoint_headers})
+        self.ignore_ssl_check = endpoint.get("ignore_ssl_check", False)
+        if self.ignore_ssl_check:
+            self.requests_kwargs.update({"verify": False})
+        else:
+            self.requests_kwargs.update({"verify": True})
+        self.redirect_auth_header = endpoint.get("redirect_auth_header", False)
+        self.timeout = endpoint.get("timeout", -1)
+        if self.timeout > 0:
+            self.requests_kwargs.update({"timeout": self.timeout})
+
+        self.requests_kwargs.update({"params": self.params})
+        self.pagination = Pagination()
+        next_page_url_key = endpoint.get("next_page_url_key", "").split('.')
+        top_key = endpoint.get("top_key")
+        skip_key = endpoint.get("skip_key")
+        pagination_type = endpoint.get("pagination_type", "na")
+        self.pagination.configure_paging(
+            skip_key=skip_key,
+            limit_key=top_key,
+            next_page_key=next_page_url_key,
+            url=self.endpoint_url,
+            pagination_type=pagination_type
+        )
+        self.last_interaction = None
+        self.requests_per_minute = endpoint.get("requests_per_minute", -1)
+        if self.requests_per_minute > 0:
+            self.time_between_requests = 60 / self.requests_per_minute
+        else:
+            self.time_between_requests = None
+        self.time_last_request = None
+        self.loop_detector = LoopDetector()
+        body_format = endpoint.get("body_format", None)
+        if body_format == DKUConstants.RAW_BODY_FORMAT:
+            text_body = endpoint.get("text_body", "")
+            self.requests_kwargs.update({"data": text_body})
+        elif body_format in [DKUConstants.FORM_DATA_BODY_FORMAT]:
+            key_value_body = endpoint.get("key_value_body", {})
+            self.requests_kwargs.update({"json": get_dku_key_values(key_value_body)})
+        self.metadata = {}
 
     def set_login(self, credential):
         login_type = credential.get("login_type", "bearer_token")
