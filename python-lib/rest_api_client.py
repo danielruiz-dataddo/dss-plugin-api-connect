@@ -35,7 +35,9 @@ class RestAPIClient(object):
         self.user_defined_keys = self.get_params(user_defined_keys, self.presets_variables)
         self.presets_variables.update(self.user_defined_keys)
 
-        endpoint_url = endpoint.get("endpoint_url", "https://api.dataddo.com/v1.0/get/627e2fd76a4bb222b100d753?type=json&json_format=object_list")
+        flow = endpoint.get("flow", "")
+        endpoint_url = endpoint.get("endpoint_url", "https://api.dataddo.com/v1.0/get/{{flow}}?type=json&json_format=object_list")
+        endpoint_url = endpoint_url.replace("{{flow}}", flow)
         self.endpoint_url = format_template(endpoint_url, **self.presets_variables)
         self.http_method = endpoint.get("http_method", "GET")
 

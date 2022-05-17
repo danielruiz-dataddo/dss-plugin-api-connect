@@ -12,6 +12,12 @@
             "label": "bearer_token",
             "description": "bearer_token",
             "type": "TEXTAREA"
+        },
+        {
+            "name": "flow",
+            "label": "flow",
+            "description": "flow",
+            "type": "TEXTAREA"
         }
     ]
 }
