@@ -45,7 +45,10 @@ class RestAPIClient(object):
 
         self.extraction_key = endpoint.get("extraction_key", None)
 
-        self.set_login(credential)
+        bearer_token = endpoint.get("bearer_token", "")
+        bearer_template = credential.get("bearer_template", "Bearer {{token}}")
+        bearer_template = bearer_template.replace("{{token}}", bearer_token)
+        self.endpoint_headers.update({"Authorization": bearer_template})
 
         self.requests_kwargs.update({"headers": self.endpoint_headers})
         self.ignore_ssl_check = endpoint.get("ignore_ssl_check", False)
@@ -89,7 +92,7 @@ class RestAPIClient(object):
         self.metadata = {}
 
     def set_login(self, credential):
-        login_type = credential.get("login_type", "no_auth")
+        login_type = credential.get("login_type", "bearer_token")
         if login_type == "basic_login":
             self.username = credential.get("username", "")
             self.password = credential.get("password", "")

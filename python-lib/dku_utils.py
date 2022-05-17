@@ -9,6 +9,7 @@ def get_dku_key_values(endpoint_query_string):
 def get_endpoint_parameters(configuration):
     endpoint_parameters = [
         "endpoint_url",
+        "bearer_token",
         "http_method",
         "endpoint_query_string",
         "endpoint_body",

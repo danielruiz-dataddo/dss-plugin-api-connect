@@ -8,15 +8,15 @@
     "writable": false,
     "params": [
         {
-            "name": "credential",
-            "label": "Credential preset",
-            "type": "PRESET",
-            "parameterSetId": "credential"
-        },
-        {
             "name": "endpoint_url",
             "label": "URL template",
             "description": "https://{{variable}}.exmpl.com/usr/{{username}}/details",
+            "type": "TEXTAREA"
+        },
+        {
+            "name": "bearer_token",
+            "label": "bearer_token",
+            "description": "bearer_token",
             "type": "TEXTAREA"
         }
     ]
