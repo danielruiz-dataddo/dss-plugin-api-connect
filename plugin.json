@@ -1,8 +1,8 @@
 {
-    "id": "api-connect",
+    "id": "connect-dataddo",
     "version": "1.0.5",
     "meta": {
-        "label": "API Connect",
+        "label": "Connect Dataddo",
         "description": "Retrieve data from any REST API",
         "author": "Dataiku (Alex Bourret)",
         "icon": "icon-rocket",
